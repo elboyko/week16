@@ -6,6 +6,8 @@ const paragraph = document.getElementById('practicum');
 
 function makeOne() {
 	//Ваш код
+	let allForms = document.forms;
+	paragraph.textContent = `Количество форм на страницe: ${allForms.length}`;
 }
 
 document.querySelector('.b-1').onclick = makeOne;
@@ -17,7 +19,8 @@ document.querySelector('.b-1').onclick = makeOne;
 const paragraphTwo = document.getElementById('practicum2');
 
 function makeTwo() {
-	//Ваш код
+	const oneForm = document.forms[0];
+	paragraphTwo.textContent = `Значение атрибута первой формы: ${oneForm.getAttribute('name')}`
 }
 
 document.querySelector('.b-2').onclick = makeTwo;
@@ -29,7 +32,8 @@ document.querySelector('.b-2').onclick = makeTwo;
 const paragraphThree = document.getElementById('practicum3');
 
 function makeThree() {
-	//Ваш код
+	const fourForm = document.forms[3];
+	paragraphThree.textContent = `Значение атрибута четвертой формы: ${fourForm.getAttribute('name')}`
 }
 
 document.querySelector('.b-3').onclick = makeThree;
