@@ -6,7 +6,7 @@ const paragraph = document.getElementById('practicum');
 
 function makeOne() {
 	//Ваш код
-	let allForms = document.forms;
+	const allForms = document.forms;
 	paragraph.textContent = `Количество форм на страницe: ${allForms.length}`;
 }
 
@@ -53,7 +53,13 @@ document.querySelector('.b-3').onclick = makeThree;
 const paragraphFour = document.getElementById('practicum4');
 
 function makeFour() {
-	//Ваш код
+	const allForms = document.forms;
+	let formNames = [];
+	for (let i = 0; i < allForms.length; i++) {
+		formNames.push(allForms[i].getAttribute('name'))
+	}
+	let string = formNames.join(', ');
+	paragraphFour.textContent = string;
 }
 
 document.querySelector('.b-4').onclick = makeFour;
@@ -66,7 +72,9 @@ document.querySelector('.b-4').onclick = makeFour;
 const paragraphFive = document.getElementById('practicum5');
 
 function makeFive() {
-	//Ваш код
+	const threeForm = document.forms.formThree;
+	const countElements = threeForm.elements;
+	paragraphFive.textContent = `Количество элементов в форме: ${countElements.length}`
 }
 
 document.querySelector('.b-5').onclick = makeFive;
@@ -78,7 +86,9 @@ document.querySelector('.b-5').onclick = makeFive;
 const paragraphSix = document.getElementById('practicum6');
 
 function makeSix() {
-	//Ваш код
+	const twoForm = document.forms.formTwo;
+	const countElements = twoForm.elements;
+	paragraphSix.textContent = `Количество элементов во второй форме: ${countElements.length}`
 }
 
 document.querySelector('.b-6').onclick = makeSix;
@@ -97,7 +107,15 @@ document.querySelector('.b-6').onclick = makeSix;
 const paragraphSeven = document.getElementById('practicum7');
 
 function makeSeven() {
-	//Ваш код
+	const formTwo = document.forms[1].elements;
+
+	let elementsList = '';
+	for (let i = 0; i < formTwo.length; i++) {
+		elementsList += `-${formTwo[i].name}`
+	}
+
+	paragraphSeven.textContent = elementsList;
+
 }
 
 document.querySelector('.b-7').onclick = makeSeven;
@@ -108,7 +126,14 @@ document.querySelector('.b-7').onclick = makeSeven;
 const paragraphEight = document.getElementById('practicum8');
 
 function makeEight() {
-	//Ваш код
+	const formOne = document.forms[0].elements;
+
+	let elementsList = '';
+	for (let i = 0; i < formOne.length; i++) {
+		elementsList += `-${formOne[i].name}`
+	}
+
+	paragraphEight.textContent = elementsList;
 }
 
 document.querySelector('.b-8').onclick = makeEight;
@@ -119,7 +144,14 @@ document.querySelector('.b-8').onclick = makeEight;
 const paragraphNine = document.getElementById('practicum9');
 
 function makeNine() {
-	//Ваш код
+	const formThree = document.forms[2].elements;
+
+	let elementsList = '';
+	for (let i = 0; i < formThree.length; i++) {
+		elementsList += `-${formThree[i].name}`
+	}
+
+	paragraphNine.textContent = elementsList;
 }
 
 document.querySelector('.b-9').onclick = makeNine;
@@ -131,7 +163,9 @@ document.querySelector('.b-9').onclick = makeNine;
 const paragraphTen = document.getElementById('practicum10');
 
 function makeTen() {
-	//Ваш код
+	const fourForm = document.forms.lastForm;
+	const input = fourForm.elements.fourthName;
+	paragraphTen.textContent = input.value;
 }
 
 document.querySelector('.b-10').onclick = makeTen;
@@ -150,9 +184,18 @@ const paragraphEleven = document.getElementById('practicum11');
 
 function makeEleven() {
 	//Ваш код
+	const form = document.forms.formOne;
+	const select = form.elements.firstSelect;
+	let optionsValues = '';
+	for (let i = 0; i < select.length; i++) {
+		optionsValues += select[i].value;
+	}
+	paragraphEleven.textContent = optionsValues;
 }
 
 document.querySelector('.b-11').onclick = makeEleven;
+
+
 
 //Задание 12
 //Выведите значения атрибутов id всех чекбоксов (количество: 3) из второй формы
@@ -164,7 +207,8 @@ document.querySelector('.b-11').onclick = makeEleven;
 const paragraphTwelve = document.getElementById('practicum12');
 
 function makeTwelve() {
-	//Ваш код
+	const form = document.forms.formTwo;
+	const checkbox = form.elements;
 }
 
 document.querySelector('.b-12').onclick = makeTwelve;
@@ -181,7 +225,12 @@ document.querySelector('.b-12').onclick = makeTwelve;
 const paragraphThirteen = document.getElementById('practicum13');
 
 function checkButton(e) {
-	//Ваш код
+	e.preventDefault();
+	const form = document.forms.lastForm;
+	const inputRadio = form.elements.fourthName;
+	if (inputRadio.checked) {
+		paragraphThirteen.textContent = "Кнопка выбрана"
+	} else paragraphThirteen.textContent = "Кнопка  не выбрана"
 }
 
 document.querySelector('.b-13').addEventListener('click', checkButton);
@@ -200,8 +249,18 @@ document.querySelector('.b-13').addEventListener('click', checkButton);
 
 const paragraphFourteen = document.getElementById('practicum14');
 
-function checkOption() {
-	//Ваш код
+function checkOption(e) {
+	e.preventDefault()
+	const form = document.forms.formOne;
+	const select = form.elements.firstSelect;
+	select.selectedIndex = 1;
+	if (select.value === "Опция 1") {
+		paragraphFourteen.textContent = "Выбран первый вариант";
+	} else if (select.value === "Опция 2") {
+		paragraphFourteen.textContent = "Выбран второй вариант";
+	} else if (select.value === "Опция 3") {
+		paragraphFourteen.textContent = "Выбран третий вариант"
+	}
 }
 
 document.querySelector('.b-14').onclick = checkOption;
@@ -215,7 +274,10 @@ document.querySelector('.b-14').onclick = checkOption;
 //- Установите значение selectedIndex равным индексу опции, которую вы хотите выбрать по умолчанию
 
 function makeFifteen() {
-	//Ваш код
+	const form = document.forms.formOne;
+	const select = form.elements.firstSelect;
+	select.selectedIndex = 0;
+
 }
 
 makeFifteen();
@@ -229,7 +291,9 @@ makeFifteen();
 //- Установите значение checked равным true для выбранного варианта
 
 function makeSixteen() {
-	//Ваш код
+	const formTwo = document.forms.formTwo;
+	const inputCheckbox = formTwo.elements.checkboxThree;
+	inputCheckbox.checked = 'true'
 }
 
 makeSixteen();
@@ -244,12 +308,21 @@ makeSixteen();
 //- В обработчике события вызовите метод event.preventDefault() для отмены отправки формы в случае ошибки
 
 const formOne = document.forms.formOne;
+const error = document.querySelector('.error-message')
+const submit = document.forms.firstButton;
 
 formOne.addEventListener('submit', function (event) {
 	event.preventDefault(); //Отмена отправки
+	const name = formOne.elements.firstName;
+	const email = formOne.elements.firstEmail;
+	const select = formOne.elements.firstSelect;
 
-	//Ваш код
+	if (name.value === 'Null') {
+		console.log(name.value);
+		error.textContent = `Не заполнено поле ${name}`
+	}
 });
+
 
 //Задание 18
 //Очистите все поля первой формы после отправки
@@ -309,6 +382,8 @@ document.querySelector('.b-21').onclick = function (event) {
 
 	if (!isChecked) {
 		//Ваш код
+		event.preventDefault()
+		document.getElementById('result21').textContent = `Не выбран ни один пункт `
 	} else {
 		document.getElementById('result21').textContent = 'Проверка пройдена';
 	}
