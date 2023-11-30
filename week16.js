@@ -382,8 +382,8 @@ document.querySelector('.b-21').onclick = function (event) {
 
 	if (!isChecked) {
 		//Ваш код
-		event.preventDefault()
-		document.getElementById('result21').textContent = `Не выбран ни один пункт `
+		event.preventDefault();
+		console.log(`не выбран чекбокс`);
 	} else {
 		document.getElementById('result21').textContent = 'Проверка пройдена';
 	}
@@ -491,6 +491,6 @@ function handleSubmit(event) {
 
 	const checkboxes = formTwo.querySelectorAll('input[type="checkbox"]:checked');
 	const selectedOptions = Array.from(checkboxes).map((checkbox) => checkbox.labels[0].textContent);
-
+	console.log(selectedOptions);
 	//Ваш код
 }
