@@ -22,6 +22,7 @@ h4 {
 h1.site-title {
 	font-size: 1.5rem;
 }
+
 h2.site-title {
 	font-size: 1.3rem;
 }
@@ -198,4 +199,9 @@ label {
 
 .form__submit {
 	margin-top: 15px;
+}
+
+.form__input-error {
+	border: 3px solid rgb(234, 26, 185);
+
 }

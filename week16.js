@@ -208,7 +208,10 @@ const paragraphTwelve = document.getElementById('practicum12');
 
 function makeTwelve() {
 	const form = document.forms.formTwo;
-	const checkbox = form.elements;
+	const checkboxOne = form.elements.checkboxOne;
+	const checkboxTwo = form.elements.checkboxTwo;
+	const checkboxThree = form.elements.checkboxThree;
+	paragraphTwelve.textContent = `Значение атрибутов id всех чекбоксов из второй формы: ${checkboxOne.id}, ${checkboxTwo.id}, ${checkboxThree.id} `
 }
 
 document.querySelector('.b-12').onclick = makeTwelve;
@@ -276,7 +279,7 @@ document.querySelector('.b-14').onclick = checkOption;
 function makeFifteen() {
 	const form = document.forms.formOne;
 	const select = form.elements.firstSelect;
-	select.selectedIndex = 0;
+	select.selectedIndex = 2;
 
 }
 
@@ -317,9 +320,10 @@ formOne.addEventListener('submit', function (event) {
 	const email = formOne.elements.firstEmail;
 	const select = formOne.elements.firstSelect;
 
-	if (name.value === 'Null') {
-		console.log(name.value);
-		error.textContent = `Не заполнено поле ${name}`
+	if (name.value === '' || email.value === '') {
+		error.textContent = `Не заполнено поле`
+	} else {
+		formOne.submit()
 	}
 });
 
@@ -335,6 +339,7 @@ formOne.addEventListener('submit', function (event) {
 formOne.addEventListener('submit', function (event) {
 	event.preventDefault(); //Отмена отправки
 	//Ваш код
+	formOne.reset()
 });
 
 //Задание 19
@@ -345,11 +350,19 @@ formOne.addEventListener('submit', function (event) {
 //- В обработчике события, используя условные операторы (if), проверьте выбранную опцию
 //- В зависимости от выбранной опции, измените цвет фона страницы, используя свойство document.body.style.backgroundColor
 
-//const selectElement = //Ваш код
+const selectElement = document.getElementById('firstSelect');
 
-// selectElement.onchange = function () {
-// 	//Ваш код
-// };
+selectElement.onchange = function () {
+	//Ваш код
+	const selectOption = selectElement.value;
+	if (selectOption === "Опция 1") {
+		document.body.style.backgroundColor = "pink"
+	} else if (selectOption === "Опция 2") {
+		document.body.style.backgroundColor = "green"
+	} else if (selectOption === "Опция 3") {
+		document.body.style.backgroundColor = "purple"
+	}
+};
 
 //Задание 20
 //Добавьте валидацию для поля Email
@@ -359,12 +372,23 @@ formOne.addEventListener('submit', function (event) {
 //- Используйте событие oninput для отслеживания изменений в поле Email
 //- В обработчике события, используя регулярное выражение (RegExp), проверьте введенное значение поля Email
 //- В зависимости от результата проверки, измените стиль поля Email (например, установите класс с ошибкой) и отобразите сообщение об ошибке в элементе <p> (добавьте элемент самостоятельно) с помощью свойства textContent.
-
-//const emailInput = //Ваш код
+const emailInput = document.getElementById('firstEmail');
+// let emailInput = formOne.elements.firstEmail;
 const errorMessage = document.getElementById('errorMessage');
 
 emailInput.oninput = function () {
 	//Ваш код
+
+	let regExp = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+	let email = emailInput.value;
+	let validEmail = regExp.test(email);
+	if (validEmail) {
+		emailInput.classList.remove('form__input-error');
+		errorMessage.textContent = "";
+	} else {
+		emailInput.classList.add('form__input-error');
+		errorMessage.textContent = "Некорректный Email";
+	}
 };
 
 //Задание 21
@@ -383,11 +407,12 @@ document.querySelector('.b-21').onclick = function (event) {
 	if (!isChecked) {
 		//Ваш код
 		event.preventDefault();
-		console.log(`не выбран чекбокс`);
+		document.getElementById('result21').textContent = 'Проверка не пройдена';
 	} else {
 		document.getElementById('result21').textContent = 'Проверка пройдена';
 	}
 };
+
 
 //Задание 22
 //При отправке третьей формы выполняется проверка поля Имя на заполненность. Если поле Имя пустое, отмените отправку формы и выведите сообщение об ошибке в элементе с id "result22".
@@ -396,7 +421,8 @@ document.querySelector('.b-22').onclick = function (event) {
 	const nameInput = document.forms.formThree.elements.thirdName;
 
 	if (nameInput.value.trim() === '') {
-		//Ваш код
+		event.preventDefault();
+		document.getElementById('result22').textContent = 'Имя не заполнено';
 	} else {
 		document.getElementById('result22').textContent = 'Проверка пройдена';
 	}
@@ -406,12 +432,29 @@ document.querySelector('.b-22').onclick = function (event) {
 //При выборе опции "Я хочу зарегистрироваться" в четвёртой форме кнопка должна быть разблокирована. В противном случае, сделайте кнопку отправки формы заблокированной.
 //Подсказка: используйте свойство disabled
 
+document.forms.lastForm.addEventListener("change", function (event) {
+	const radioBtn = event.target;
+	const submitBtn = document.querySelector(".b-13");
+
+	if (radioBtn.value === "Я хочу зарегистрироваться") {
+		submitBtn.disabled = false;
+	} else {
+		submitBtn.disabled = true;
+	}
+});
+
+
 //Задание 24
 //Найдите все поля ввода на странице и установите им атрибут "placeholder" со значением "Введите данные"
 //Подсказка: для установки атрибута используйте методы forEach и setAttribute
 
 document.querySelector('.b-24').onclick = function () {
-	//Ваш код
+	const inputAlls = document.querySelectorAll("input");
+
+	inputAlls.forEach(function (input) {
+		input.setAttribute("placeholder", "Введите данные");
+	});
+
 };
 
 //Задание 25
@@ -422,20 +465,24 @@ document.querySelector('.b-25').onclick = function () {
 
 	inputs.forEach(function (input) {
 		input.addEventListener('focus', function () {
-			//Ваш код
+
+			input.style.border = '3px solid #00ff00';
 		});
 
 		input.addEventListener('blur', function () {
 			//Ваш код
+			input.style.border = '';
 		});
 	});
 };
 
 //Задание 26
 //При нажатии на кнопку "Задание 26" отобразите в элементе с id "result26" значение placeholder из поля имя в третьей форме
-
+const par = document.querySelector('#result26');
 document.querySelector('.b-26').onclick = function (event) {
 	event.preventDefault();
+	const nameInput = document.forms.formThree.elements.thirdName;
+	par.textContent = nameInput.getAttribute('placeholder')
 	//Ваш код
 };
 
@@ -443,10 +490,11 @@ document.querySelector('.b-26').onclick = function (event) {
 //При изменении значения любого из полей второй формы отобразите сообщение с текстом "Изменение внесено" в элементе с id "result27"
 
 const formTwoInputs = document.querySelectorAll('.secondForm input');
-
+const result = document.getElementById('result27')
 formTwoInputs.forEach(function (input) {
 	input.addEventListener('input', function () {
 		//Ваш код
+		result.textContent = "Изменение внесено"
 	});
 });
 
@@ -457,19 +505,22 @@ const selectFormThree = document.getElementById('firstSelect');
 
 selectFormThree.addEventListener('change', function () {
 	//Ваш код
+	const result = document.getElementById('result28');
+	result.textContent = "Опция выбрана"
 });
 
 //Задание 29
 //При заполнении всех полей третьей формы выведите их значения в консоль. Используйте JavaScript без использования объекта FormData.
 
 const formThree = document.forms.formThree;
-const nameInputThree = form.elements.thirdName;
-const emailInputThree = form.elements.thirdEmail;
+const nameInputThree = formThree.elements.thirdName;
+const emailInputThree = formThree.elements.thirdEmail;
 
 function handleSubmitTwentyNine(event) {
 	event.preventDefault();
 
 	if (nameInputThree.value && emailInputThree.value) {
+		console.log(`Поля формы: ${nameInputThree.value}, ${emailInputThree.value}`);
 		//Ваш код
 	} else {
 		console.log('Пожалуйста, заполните все поля формы.');
